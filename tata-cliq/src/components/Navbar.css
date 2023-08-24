@@ -1,0 +1,670 @@
+/* body {
+  position: relative;
+} */
+
+#navbar {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  color: white;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background-color: rgb(33, 33, 33);
+  /* border: 1px solid black; */
+}
+
+#navbar > #navbar-left {
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid green; */
+}
+
+#navbar > #navbar-left > #logo {
+  height: 40%;
+  width: 40%;
+  cursor: pointer;
+}
+
+#navbar > #navbar-left > #logo > img {
+  height: 100%;
+  width: 100%;
+}
+
+#navbar > #navbar-right {
+  height: 100%;
+  width: 80%;
+  /* border: 1px solid red; */
+}
+
+#navbar > #navbar-right > #navbar-right-up {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  background-color: black;
+  /* border: 1px solid black; */
+}
+
+#navbar > #navbar-right > #navbar-right-up > #right-up-left {
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  /* border: 1px solid black; */
+}
+
+#navbar > #navbar-right > #navbar-right-up > #right-up-left > h5 {
+  font-weight: 600;
+}
+
+#navbar > #navbar-right > #navbar-right-up > #right-up-right {
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 75px;
+  /* border: 1px solid rgb(255, 255, 255); */
+}
+
+#navbar > #navbar-right > #navbar-right-up > #right-up-right > h5 {
+  padding: 0 15px;
+  font-weight: 600;
+}
+
+#navbar > #navbar-right > #navbar-right-down {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  /* border: 1px solid rgb(255, 255, 255); */
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-1 {
+  height: 100%;
+  width: 22%;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  /* border: 1px solid rgb(255, 255, 255); */
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-1 > #categories,
+#brands {
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  padding: 0 8px;
+  cursor: pointer;
+  /* border: 1px solid rgb(255, 255, 255); */
+}
+
+#navbar
+  > #navbar-right
+  > #navbar-right-down
+  > #right-down-1
+  > #categories
+  > h4 {
+  font-weight: 600;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-1 > #brands > h4 {
+  font-weight: 600;
+}
+
+#navbar
+  > #navbar-right
+  > #navbar-right-down
+  > #right-down-1
+  > #categories:hover {
+  background-color: white;
+  color: black;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-1 > #brands {
+  margin-left: 18px;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-1 > #brands:hover {
+  background-color: white;
+  color: black;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-2 {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-2 > #search {
+  height: 68%;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgb(74, 74, 74);
+  /* border: 1px solid black; */
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-2 > #search > i {
+  padding: 0 15px;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-2 > #search > input {
+  height: 100%;
+  width: 90%;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 15px;
+  color: white;
+}
+
+#navbar
+  > #navbar-right
+  > #navbar-right-down
+  > #right-down-2
+  > #search
+  > input::placeholder {
+  font-size: 14px;
+  color: white;
+}
+
+#navbar > #navbar-right > #navbar-right-down > #right-down-3 {
+  height: 100%;
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  /* border: 1px solid black; */
+}
+
+/* ------------------- */
+#navbar-popup {
+  height: auto;
+  /* width: 74%; */
+  position: absolute;
+  position: fixed;
+  left: 20%;
+  z-index: 100;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  border-radius: 2px;
+  /* border: 1px solid black; */
+}
+
+#navbar-popup > #popup-left {
+  height: auto;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  /* border: 1px solid black; */
+}
+
+#navbar-popup > #popup-left > .left-menu-items {
+  height: 60px;
+  width: 190px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0px;
+  margin: 0px 15px;
+  color: rgb(161, 161, 161);
+  border-bottom: 1px solid rgb(184, 184, 184);
+}
+
+#navbar-popup > #popup-left > .left-menu-items:last-child {
+  border: none;
+}
+
+#navbar-popup > #popup-left > .left-menu-items:hover {
+  cursor: pointer;
+  color: black;
+}
+
+#navbar-popup > #popup-left > .left-menu-items > span {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  /* border: 1px solid black; */
+}
+
+#navbar-popup > #popup-right {
+  height: auto;
+  width: 0%;
+  /* border: 1px solid red; */
+}
+
+/* ---------------------------Account-popup------------------------------------- */
+#account-popup {
+  height: auto;
+  width: 15%;
+  position: absolute;
+  position: fixed;
+  top: 28px;
+  left: 82%;
+  z-index: 100;
+  padding: 10px 0;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  border-radius: 2px;
+  /* border: 1px solid black; */
+}
+
+#account-popup > #login-register-btn {
+  margin: 15px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#account-popup > #login-register-btn > button {
+  height: 35px;
+  width: 70%;
+  border-radius: 20px;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+  background-color: rgb(255, 23, 68);
+  /* border: 1px solid black; */
+}
+
+#account-popup > .side-popup {
+  /* margin: 25px 32px; */
+  width: 70% !important;
+  margin: auto;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 0;
+  /* border: 1px solid black; */
+}
+
+#account-popup > .side-popup > img {
+  height: 18px;
+  width: 18px;
+  margin-right: 12px;
+}
+
+#account-popup > .side-popup > p {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* --------------------Register-Login Popup-------------------------------------- */
+#screen {
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  background-color: rgb(0, 0, 0, 0.5) !important;
+  z-index: 11;
+}
+
+#screen > #register {
+  height: 98%;
+  width: 35%;
+  position: absolute;
+  /* top: 6%; */
+  /* left: 33%; */
+  border-radius: 20px;
+  background-color: white;
+  /* border: 2px solid red; */
+}
+
+#screen > #register .close {
+  text-align: right;
+  padding: 5px 25px;
+  margin: 10px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #register .close > .fa-xmark {
+  cursor: pointer;
+}
+
+#screen > #register > .header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #register > .header > h1 {
+  width: 65%;
+  font-weight: 600;
+  line-height: 35px;
+}
+
+#screen > #register > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#screen > #register > form > input {
+  height: 48px;
+  width: 70%;
+  margin: 10px 0;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #register > form > input::placeholder {
+  text-align: center;
+  /* padding-left: 50px ; */
+}
+
+#screen > #register > form > select {
+  height: 48px;
+  width: 50%;
+  margin: 10px 0;
+  padding: 0 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #register > form > select > option {
+  font-weight: 400;
+}
+
+#screen > #register > form > button {
+  height: 48px;
+  width: 70%;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(143, 35, 105),
+    rgb(211, 65, 84)
+  );
+  /* border: 1px solid black; */
+}
+
+#screen > #register > p {
+  padding-left: 32%;
+  margin: 10px 0;
+  font-size: 14px;
+  /* border: 1px solid black; */
+}
+
+#screen > #register > p > span {
+  font-weight: 600;
+  color: rgb(255, 23, 68);
+  cursor: pointer;
+}
+
+#screen > #register > .policies {
+  text-align: center;
+  margin: auto;
+  width: 75%;
+  /* border: 1px solid black; */
+}
+
+#screen > #register > .policies > span {
+  font-size: 13px;
+  width: 50%;
+  text-align: center;
+  /* border: 1px solid black; */
+}
+
+#screen > #register > .policies > span > b {
+  font-size: 13px;
+  color: rgb(255, 23, 68);
+}
+
+/* ---------------------Login------------------------------------ */
+#screen > #login {
+  height: 85%;
+  width: 35%;
+  position: absolute;
+  /* top: 0; */
+  /* left: 33%; */
+  border-radius: 20px;
+  background-color: white;
+  /* border: 2px solid red; */
+}
+
+#screen > #login .close {
+  text-align: right;
+  padding: 5px 25px;
+  margin: 10px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #login .close > .fa-xmark {
+  cursor: pointer;
+}
+
+#screen > #login > .header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #login > .header > h1 {
+  width: 65%;
+  font-weight: 600;
+  line-height: 35px;
+}
+
+#screen > #login > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#screen > #login > form > input {
+  height: 48px;
+  width: 70%;
+  margin: 10px 0;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #login > form > input::placeholder {
+  text-align: center;
+  /* padding-left: 50px ; */
+}
+
+#screen > #login > form > button {
+  height: 48px;
+  width: 70%;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(143, 35, 105),
+    rgb(211, 65, 84)
+  );
+  /* border: 1px solid black; */
+}
+
+#screen > #login > p {
+  padding-left: 32%;
+  margin: 10px 0;
+  font-size: 14px;
+  /* border: 1px solid black; */
+}
+
+#screen > #login > p > span {
+  font-weight: 600;
+  color: rgb(255, 23, 68);
+  cursor: pointer;
+}
+
+#screen > #login > .policies {
+  text-align: center;
+  margin: auto;
+  width: 75%;
+  /* border: 1px solid black; */
+}
+
+#screen > #login > .policies > span {
+  font-size: 13px;
+  width: 50%;
+  text-align: center;
+  /* border: 1px solid black; */
+}
+
+#screen > #login > .policies > span > b {
+  font-size: 13px;
+  color: rgb(255, 23, 68);
+}
+
+/* ---------------------------Add-product-popup----------------------------------- */
+#screen > #add-product {
+  height: 94%;
+  width: 35%;
+  position: absolute;
+  /* top: 6%; */
+  /* left: 33%; */
+  border-radius: 20px;
+  background-color: white;
+  /* border: 2px solid red; */
+}
+
+#screen > #add-product .close {
+  text-align: right;
+  padding: 5px 25px;
+  margin: 10px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #add-product .close > .fa-xmark {
+  cursor: pointer;
+}
+
+#screen > #add-product > .header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #add-product > .header > h1 {
+  width: 65%;
+  font-weight: 600;
+  line-height: 35px;
+}
+
+#screen > #add-product > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#screen > #add-product > form > input {
+  height: 48px;
+  width: 70%;
+  margin: 10px 0;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #add-product > form > input::placeholder {
+  text-align: center;
+  /* padding-left: 50px ; */
+}
+
+#screen > #add-product > form > select {
+  height: 48px;
+  width: 50%;
+  margin: 10px 0;
+  padding: 0 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #add-product > form > select > option {
+  font-weight: 400;
+}
+
+#screen > #add-product > form > button {
+  height: 48px;
+  width: 70%;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(143, 35, 105),
+    rgb(211, 65, 84)
+  );
+  /* border: 1px solid black; */
+}

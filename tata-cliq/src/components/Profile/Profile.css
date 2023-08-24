@@ -1,0 +1,281 @@
+#profile-screen {
+  margin-top: 100px;
+  padding: 80px 0;
+  background-color: rgb(236, 236, 236);
+  /* border: 1px solid black; */
+}
+
+#profile {
+  margin: auto;
+  height: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* border: 1px solid black; */
+}
+
+/* --------------------------left------------------------ */
+#profile > #left-profile {
+  height: auto;
+  width: 20%;
+  border-radius: 5px;
+  background-color: white;
+  /* border: 1px solid black; */
+}
+
+#profile > #left-profile > #left-header {
+  width: 100%;
+  margin: auto;
+  padding: 15px 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rgb(249, 249, 249);
+  /* border: 1px solid black; */
+}
+
+#profile > #left-profile > #left-header > h4 {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 18px;
+}
+
+#profile > #left-profile > .left-common {
+  display: flex;
+  width: 85%;
+  margin: auto;
+  padding: 18px 0;
+  /* border: 1px solid black; */
+}
+
+#profile > #left-profile > .left-common > img {
+  height: 20px;
+  width: 20px;
+}
+
+#profile > #left-profile > .left-common > p {
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+/* ------------------------main-------------------------------------- */
+
+#profile > #main-profile {
+  height: auto;
+  width: 56%;
+  border-radius: 5px;
+  padding-bottom: 30px;
+  background-color: white;
+  /* border: 1px solid black; */
+}
+
+#profile > #main-profile > #main-header {
+  width: 100%;
+  margin: auto;
+  padding: 12px 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rgb(249, 249, 249);
+}
+
+#profile > #main-profile > #main-header > h4 {
+  font-weight: 600;
+  padding: 0 5px;
+}
+
+#profile > #main-profile > .details {
+  padding: 0 20px;
+  margin: 10px 0;
+  /* border: 1px solid grey; */
+}
+
+#profile > #main-profile > .details > .details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  /* border: 1px solid black; */
+}
+
+#profile > #main-profile > .details > .details-header > h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#profile > #main-profile > .details > .details-header > span {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(238, 12, 50);
+}
+
+#profile > #main-profile > .details > .details-body {
+  padding: 10px 0;
+  border-radius: 12px;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+#profile > #main-profile > .details > .details-body > .fields {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  margin: 10px 0;
+
+  /* border: 1px solid black; */
+}
+
+#profile > #main-profile > .details > .details-body > .fields > label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#profile > #main-profile > .details > .details-body > .fields > input {
+  height: 95%;
+  width: 80%;
+  border-radius: 4px;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+#profile
+  > #main-profile
+  > .details
+  > .details-body
+  > .fields
+  > input::placeholder {
+  font-size: 15px;
+  padding: 0 8px;
+}
+
+/* ------------------right--------------------------- */
+#profile > #right-profile {
+  position: sticky;
+  top: 180px;
+  width: 20%;
+  padding: 30px 10px 25px 10px;
+  border-radius: 5px;
+  background-color: white;
+  /* border: 1px solid black; */
+}
+
+#profile > #right-profile > .circle {
+  height: 58px;
+  width: 58px;
+  border-radius: 50%;
+  margin: auto;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(235, 236, 237);
+  /* border: 1px solid black; */
+}
+
+#profile > #right-profile > .circle > p {
+  font-size: 35px;
+  color: rgb(255, 102, 132);
+}
+
+#profile > #right-profile > p {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 0 0 0;
+  text-align: center;
+}
+
+/* -------------------------------edit-profile-popup-------------------------------- */
+
+#screen {
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  background-color: rgb(0, 0, 0, 0.5) !important;
+  z-index: 11;
+}
+
+#screen > #edit-profile {
+  height: 65%;
+  width: 35%;
+  position: absolute;
+  /* top: 0; */
+  /* left: 33%; */
+  border-radius: 20px;
+  background-color: white;
+  /* border: 2px solid red; */
+}
+
+#screen > #edit-profile .close {
+  text-align: right;
+  padding: 5px 25px;
+  margin: 10px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #edit-profile .close > .fa-xmark {
+  cursor: pointer;
+}
+
+#screen > #edit-profile > .header {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0 10px 0;
+  /* border: 2px solid black; */
+}
+
+#screen > #edit-profile > .header > h1 {
+  width: 65%;
+  font-weight: 600;
+  line-height: 35px;
+}
+
+#screen > #edit-profile > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#screen > #edit-profile > form > input {
+  height: 48px;
+  width: 70%;
+  margin: 10px 0;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#screen > #edit-profile > form > input::placeholder {
+  text-align: center;
+  /* padding-left: 50px ; */
+}
+
+#screen > #edit-profile > form > button {
+  height: 48px;
+  width: 70%;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+  color: white;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(143, 35, 105),
+    rgb(211, 65, 84)
+  );
+  /* border: 1px solid black; */
+}

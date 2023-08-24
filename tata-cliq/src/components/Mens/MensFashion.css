@@ -1,0 +1,273 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#mens-fashion {
+  height: auto;
+  width: 100%;
+  margin-top: 100px;
+  padding-bottom: 100px;
+  background-color: rgb(236, 236, 236);
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #slider {
+  height: 428px;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #slider > img {
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-1 {
+  height: 130px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 28px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-1 > .sec-1-common {
+  height: 100%;
+  width: 10%;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+#mens-fashion > #sec-1 > .sec-1-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-2 {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 38px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-2 > .sec-2-common {
+  height: 100%;
+  width: 28%;
+  padding: 0 10px;
+  margin: 0 6px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border: 1px solid white;
+}
+
+#mens-fashion > #sec-2 > .sec-2-common > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+#mens-fashion > #sec-3 {
+  width: 100%;
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-3 > .sec-3-common {
+  height: 100%;
+  width: 75%;
+  margin: 25px 0;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-3 > .sec-3-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-4 {
+  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-4 > .sec-4-common {
+  height: 100%;
+  width: 19%;
+  padding: 0 8px;
+}
+
+#mens-fashion > #sec-4 > .sec-4-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-5 {
+  height: 140px;
+  width: 100%;
+  margin: 60px 0;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-5 > .sec-5-common {
+  height: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+#mens-fashion > #sec-5 > .sec-5-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-6 {
+  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-6 > .sec-6-common {
+  height: 100%;
+  width: 19%;
+  padding: 0 8px;
+}
+
+#mens-fashion > #sec-6 > .sec-6-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-7 {
+  height: 140px;
+  width: 100%;
+  margin: 60px 0;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-7 > .sec-7-common {
+  height: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+#mens-fashion > #sec-7 > .sec-7-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-8 {
+  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 110px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-8 > .sec-8-common {
+  height: 100%;
+  width: 19%;
+  padding: 0 12px;
+}
+
+#mens-fashion > #sec-8 > .sec-8-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-9 {
+  height: 140px;
+  width: 100%;
+  margin: 65px 0;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-9 > .sec-9-common {
+  height: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+#mens-fashion > #sec-9 > .sec-9-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-10 {
+  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-10 > .sec-10-common {
+  height: 100%;
+  width: 19%;
+  padding: 0 8px;
+}
+
+#mens-fashion > #sec-10 > .sec-10-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-11 {
+  height: 140px;
+  width: 100%;
+  margin: 65px 0;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-11 > .sec-11-common {
+  height: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+#mens-fashion > #sec-11 > .sec-11-common > img {
+  height: 100%;
+  width: 100%;
+}
+
+#mens-fashion > #sec-12 {
+  height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* border: 1px solid black; */
+}
+
+#mens-fashion > #sec-12 > .sec-12-common {
+  height: 100%;
+  width: 19%;
+  padding: 0 8px;
+}
+
+#mens-fashion > #sec-12 > .sec-12-common > img {
+  height: 100%;
+  width: 100%;
+}
