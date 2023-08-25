@@ -14,7 +14,7 @@ const Login = (props) => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (userData.email && userData.password) {
-      const response = await axios.post("http://localhost:8002/login", {
+      const response = await axios.post("http://localhost:8003/login", {
         userData,
       });
 

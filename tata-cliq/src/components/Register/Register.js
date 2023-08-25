@@ -15,6 +15,7 @@ const Register = (props) => {
   const handleChangeValues = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,7 +27,7 @@ const Register = (props) => {
       userData.role
     ) {
       if (userData.password == userData.confirmPassword) {
-        const response = await axios.post("http://localhost:8002/register", {
+        const response = await axios.post("http://localhost:8003/register", {
           userData,
         });
 
