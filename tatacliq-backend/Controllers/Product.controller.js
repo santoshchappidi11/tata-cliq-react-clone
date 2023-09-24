@@ -4,19 +4,20 @@ import UserModel from "../Models/User.model.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const { image, name, price, category, token } = req.body;
+    const { image, name, price, category } = req.body.addProductData;
+    const { token } = req.body;
 
     if (!image || !name || !price || !category || !token)
       return res
         .status(404)
-        .json({ status: "error", message: "All fields are mandatory!" });
+        .json({ success: false, message: "All fields are mandatory!" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Token not valid!" });
+        .json({ success: false, message: "Token not valid!" });
 
     const userId = decodedData.userId;
 
@@ -31,9 +32,9 @@ export const addProduct = async (req, res) => {
 
     return res
       .status(201)
-      .json({ status: "success", message: "Product added successfully!" });
+      .json({ success: true, message: "Product added successfully!" });
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 

@@ -1,57 +1,56 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { AuthContexts } from "../Context/AuthContext";
-import { v4 as uuidv4 } from "uuid";
+// import { AuthContexts } from "../Context/AuthContext";
+// import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import api from "../../ApiConfig";
 
 const AddProduct = (props) => {
-  const { state, contextProducts } = useContext(AuthContexts);
-  const [addProduct, setAddProduct] = useState({
-    image: "",
+  // const { state, contextProducts } = useContext(AuthContexts);
+  const navigateTo = useNavigate();
+  const [addProductData, setAddProductData] = useState({
     name: "",
+    image: "",
     price: "",
-    category: "Men",
+    category: "Mens",
   });
-  const [currentUser, setCurrentUser] = useState({});
-  // console.log(addProduct);
-  console.log(state);
-
-  useEffect(() => {
-    if (state.currentUser) {
-      setCurrentUser(state.currentUser);
-    } else {
-      setCurrentUser({});
-    }
-  }, [state]);
 
   const handleChangeValues = (e) => {
-    setAddProduct({ ...addProduct, [e.target.name]: e.target.value });
+    setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
   };
 
-  const handleAddProductSubmit = (e) => {
+  const handleSubmitAddProduct = async (e) => {
     e.preventDefault();
 
     if (
-      addProduct.image &&
-      addProduct.name &&
-      addProduct.price &&
-      addProduct.category
+      addProductData.name &&
+      addProductData.image &&
+      addProductData.price &&
+      addProductData.category
     ) {
-      if (currentUser?.role == "Seller") {
-        const allProducts = JSON.parse(localStorage.getItem("products")) || [];
-        let randomId = uuidv4();
-        addProduct["id"] = randomId;
-        allProducts.push(addProduct);
-        contextProducts(allProducts);
-        // allProducts.push(addProduct);
-        // localStorage.setItem("products", JSON.stringify(allProducts));
-        props.setIsShowAddProductPopup(false);
-        props.setIsShowScreen(false);
-        toast.success("Product Added Successfully!");
-      } else {
-        toast.error("You are not a valid user!");
+      try {
+        const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+
+        if (token) {
+          const response = await api.post("/add-product", {
+            addProductData,
+            token,
+          });
+
+          if (response.data.success) {
+            toast.success(response.data.message);
+            props.setIsShowAddProductPopup(false);
+            props.setIsShowScreen(false);
+            navigateTo("/");
+          } else {
+            toast.error(response.data.message);
+          }
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
     } else {
-      toast.error("Please fill all the details");
+      toast.error("Please fill all the fields!");
     }
   };
 
@@ -68,32 +67,32 @@ const AddProduct = (props) => {
           <div className="header">
             <h1>Add Product</h1>
           </div>
-          <form onSubmit={handleAddProductSubmit}>
+          <form onSubmit={handleSubmitAddProduct}>
             <input
               type="text"
               name="image"
               placeholder="Product Image"
-              value={addProduct.image}
+              value={addProductData.image}
               onChange={handleChangeValues}
             />
             <input
               type="text"
               name="name"
               placeholder="Product Name"
-              value={addProduct.name}
+              value={addProductData.name}
               onChange={handleChangeValues}
             />
             <input
               type="text"
               name="price"
               placeholder="Product Price"
-              value={addProduct.price}
+              value={addProductData.price}
               onChange={handleChangeValues}
             />
             <select
               name="category"
               onChange={handleChangeValues}
-              value={addProduct.category}
+              value={addProductData.category}
             >
               <option>Men</option>
               <option>Women</option>
