@@ -23,7 +23,11 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route exact path="/single-product/:id" element={<SingleProduct />} />
+        <Route
+          exact
+          path="/single-product/:singleProdId"
+          element={<SingleProduct />}
+        />
         <Route exact path="/wishlist" element={<Wishlist />} />
         <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/cart" element={<Cart />} />

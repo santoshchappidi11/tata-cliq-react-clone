@@ -408,9 +408,9 @@ b {
 
 #single-product > #right > #sec-6 > .main-button {
   height: 80%;
-  width: 35%;
+  width: 75%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   /* border: 1px solid rgb(204, 204, 204); */
 }
@@ -424,6 +424,7 @@ b {
   background: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 0 10px;
 }
 
 /* ---------------------------right------------------------- */

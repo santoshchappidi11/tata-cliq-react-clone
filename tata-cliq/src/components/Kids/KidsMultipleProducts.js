@@ -2,23 +2,41 @@ import React, { useContext, useEffect, useState } from "react";
 import "./KidsMultipleProducts.css";
 // import kidsData from "./../../data/ProdDetailsKids.json";
 import { useNavigate } from "react-router-dom";
-import { AuthContexts } from "../Context/AuthContext";
+// import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig";
+import toast from "react-hot-toast";
 
 const KidsMultipleProducts = () => {
-  const { state } = useContext(AuthContexts);
+  const [allProducts, setAllProducts] = useState([]);
+  const [kidProductsData, setkidProductsData] = useState([]);
   const navigateTo = useNavigate();
-  const [products, setProducts] = useState([]);
-  // console.log(products);
 
   useEffect(() => {
-    // const allProducts = JSON.parse(localStorage.getItem("products")) || [];
-    if (state?.allProducts?.length) {
-      const newProducts = state?.allProducts.filter(
+    const getAllProducts = async () => {
+      try {
+        const response = await api.get("/all-products");
+        if (response.data.success) {
+          setAllProducts(response.data.products);
+        } else {
+          setAllProducts([]);
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getAllProducts();
+  }, []);
+
+  useEffect(() => {
+    if (allProducts?.length) {
+      const newProducts = allProducts?.filter(
         (prod) => prod.category == "Kids"
       );
-      setProducts(newProducts);
+      setkidProductsData(newProducts);
     }
-  }, [state]);
+  }, [allProducts]);
 
   function redirectToSingleProduct(id) {
     navigateTo(`/single-product/${id}`);
@@ -192,11 +210,11 @@ const KidsMultipleProducts = () => {
         </div>
         {/* ------------------------------------------------------------------ */}
         <div id="right">
-          {products &&
-            products.map((prod) => (
+          {kidProductsData?.length ?
+            kidProductsData.map((prod) => (
               <div
                 className="single-product"
-                onClick={() => redirectToSingleProduct(prod.id)}
+                onClick={() => redirectToSingleProduct(prod._id)}
               >
                 <div className="product-img">
                   <img src={prod.image} alt="product-img" />
@@ -204,7 +222,7 @@ const KidsMultipleProducts = () => {
                 <div className="product-desc">
                   <h3>{prod.name}</h3>
                   <p>{prod.category}</p>
-                  <h4>{prod.price}</h4>
+                  <h4>₹ {prod.price}</h4>
                   {prod && (
                     <div className="product-rating">
                       <div className="rating">
@@ -217,14 +235,14 @@ const KidsMultipleProducts = () => {
                       <span>(105)</span>
                     </div>
                   )}
-                  {prod.limited && (
+                  {prod?.limited && (
                     <div className="limited">
                       <p>{prod.limited}</p>
                     </div>
                   )}
                 </div>
               </div>
-            ))}
+            )) : <h3>No Products!</h3>}
         </div>
       </div>
     </div>

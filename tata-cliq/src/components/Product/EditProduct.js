@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./EditProduct.css";
 import { toast } from "react-hot-toast";
-import { useParams } from "react-router-dom";
-import { AuthContexts } from "../Context/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+// import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig";
 
 const EditProduct = (props) => {
-  const singleProd = useParams();
-  const { state, contextProducts } = useContext(AuthContexts);
-  const [user, setUser] = useState([]);
+  const { singleProdId } = useParams();
+  const navigateTo = useNavigate();
+  // const { state, contextProducts } = useContext(AuthContexts);
+  // const [user, setUser] = useState([]);
 
   const [editProduct, setEditProduct] = useState({
     image: "",
@@ -17,59 +19,65 @@ const EditProduct = (props) => {
   });
 
   useEffect(() => {
-    if (state?.allProducts?.length) {
-      const singleProdData = state?.allProducts?.find(
-        (prod) => prod.id == singleProd.id
-      );
-      setEditProduct(singleProdData);
-    }
-  }, [state, singleProd]);
+    const getEditProductData = async () => {
+      try {
+        const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
 
-  useEffect(() => {
-    if (state?.currentUser) {
-      setUser(state.allProducts);
-    } else {
-      setUser([]);
-    }
-  }, [state]);
+        if (token) {
+          const response = await api.post("/get-editproduct-data", {
+            productId: singleProdId,
+            token,
+          });
+
+          if (response.data.success) {
+            setEditProduct(response.data.product);
+          } else {
+            toast.error(response.data.message);
+          }
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getEditProductData();
+  }, [singleProdId]);
 
   const handleChangeValues = (e) => {
     setEditProduct({ ...editProduct, [e.target.name]: e.target.value });
   };
 
-  const handleEditProductSubmit = (e) => {
+  const handleEditProductSubmit = async (e) => {
     e.preventDefault();
 
     if (
-      editProduct.image &&
       editProduct.name &&
+      editProduct.image &&
       editProduct.price &&
       editProduct.category
     ) {
-      //   const allProducts = JSON.parse(localStorage.getItem("products")) || [];
+      try {
+        const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+        const response = await api.patch("/update-your-product", {
+          editProduct,
+          token,
+          productId: singleProdId,
+        });
 
-      for (let i = 0; i < user?.length; i++) {
-        if (user[i].id == singleProd.id) {
-          user[i].id = editProduct.id;
-          user[i].image = editProduct.image;
-          user[i].name = editProduct.name;
-          user[i].price = editProduct.price;
-          user[i].category = editProduct.category;
+        if (response.data.success) {
+          toast.success(response.data.message);
+          props.setIsShowScreenPopup(false);
+          props.setIsShowEditProdPopup(false);
+          // navigateTo(`/${response?.data?.product?.category}`);
+          navigateTo("/");
+        } else {
+          toast.error(response.data.message);
         }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
-      contextProducts(user);
-      //   localStorage.setItem("products", JSON.stringify(allProducts));
-      setEditProduct({
-        image: "",
-        name: "",
-        price: "",
-        category: "Men",
-      });
-      props.setIsShowScreenPopup(false);
-      props.setIsShowEditProdPopup(false);
-      toast.success("Product updated successfully!");
     } else {
-      toast.error("Please fill all the details!");
+      toast.error("Please fill all the fields!");
     }
   };
 

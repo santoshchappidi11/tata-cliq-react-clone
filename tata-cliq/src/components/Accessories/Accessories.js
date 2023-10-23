@@ -3,22 +3,41 @@ import "./Accessories.css";
 // import accessoriesData from "./../../data/ProdDetailsAccessories.json";
 import { useNavigate } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig";
+import toast from "react-hot-toast";
 
 const Accessories = () => {
-  const { state } = useContext(AuthContexts);
   const navigateTo = useNavigate();
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [accessoriesProducts, setAccessoriessProducts] = useState([]);
   // console.log(products);
 
   useEffect(() => {
-    // const allProducts = JSON.parse(localStorage.getItem("products")) || [];
-    if (state.allProducts?.length) {
-      const newProducts = state?.allProducts.filter(
+    const getAllProducts = async () => {
+      try {
+        const response = await api.get("/all-products");
+        if (response.data.success) {
+          setAllProducts(response.data.products);
+        } else {
+          setAllProducts([]);
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getAllProducts();
+  }, []);
+
+  useEffect(() => {
+    if (allProducts?.length) {
+      const newProducts = allProducts?.filter(
         (prod) => prod.category == "Accessories"
       );
-      setProducts(newProducts);
+      setAccessoriessProducts(newProducts);
     }
-  }, [state]);
+  }, [allProducts]);
 
   function redirectToSingleProduct(id) {
     navigateTo(`/single-product/${id}`);
@@ -192,11 +211,11 @@ const Accessories = () => {
         </div>
         {/* ------------------------------------------------------------------ */}
         <div id="right">
-          {products &&
-            products.map((prod) => (
+          {accessoriesProducts?.length ? (
+            accessoriesProducts.map((prod) => (
               <div
                 className="single-product"
-                onClick={() => redirectToSingleProduct(prod.id)}
+                onClick={() => redirectToSingleProduct(prod._id)}
               >
                 <div className="product-img">
                   <img src={prod.image} alt="product-img" />
@@ -204,7 +223,7 @@ const Accessories = () => {
                 <div className="product-desc">
                   <h3>{prod.name}</h3>
                   <p>{prod.category}</p>
-                  <h4>{prod.price}</h4>
+                  <h4>₹ {prod.price}</h4>
                   {prod && (
                     <div className="product-rating">
                       <div className="rating">
@@ -224,7 +243,10 @@ const Accessories = () => {
                   )}
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <h4>No Products!</h4>
+          )}
         </div>
       </div>
     </div>

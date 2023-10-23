@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
+import morgan from "morgan";
+
 import {
   Login,
   Register,
@@ -13,6 +15,8 @@ import {
   addRating,
   allProducts,
   deleteYourProduct,
+  getEditProductData,
+  getSingleProduct,
   getYourProducts,
   updateYourProduct,
 } from "./Controllers/Product.controller.js";
@@ -27,6 +31,7 @@ import {
   addToWishlist,
   getCartProducts,
   removeCartProduct,
+  removeAllCartProducts,
 } from "./Controllers/Buyer.controller.js";
 import {
   blockProduct,
@@ -46,34 +51,32 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 app.use(cors());
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.send("working!!!");
 });
 
 app.post("/register", Register);
-
 app.post("/login", Login);
-
 app.post("/get-current-user", getCurrentUser);
 
-app.post("/add-product", checkSeller, addProduct);
-
+//Seller
 app.get("/all-products", allProducts);
-
+app.post("/add-product", checkSeller, addProduct);
+app.post("/get-singleproduct-data", getSingleProduct);
+app.post("/get-editproduct-data", checkSeller, getEditProductData);
 app.get("/get-your-products", checkSeller, getYourProducts);
-
 app.patch("/update-your-product", checkSeller, updateYourProduct);
-app.delete("/delete-your-product", checkSeller, deleteYourProduct);
-
-app.post("/add-to-cart", addToCart);
-app.get("/get-cart-products", getCartProducts);
-app.delete("/remove-cart-product", removeCartProduct);
-
-app.post("/add-to-wishlist", addToWishlist);
-app.get("/get-wishlist-products", getWishlistProducts);
+app.post("/delete-your-product", checkSeller, deleteYourProduct);
 
 // buyer
+app.post("/add-to-cart", addToCart);
+app.post("/get-cart-products", getCartProducts);
+app.post("/remove-cart-product", removeCartProduct);
+app.post("/remove-all-cart-products", removeAllCartProducts);
+app.post("/add-to-wishlist", addToWishlist);
+app.get("/get-wishlist-products", getWishlistProducts);
 
 // admin
 app.get("/get-all-buyers", checkIsAdmin, getAllBuyers);

@@ -1,20 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./SingleProduct.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
 import EditProduct from "./EditProduct";
 import { toast } from "react-hot-toast";
+import api from "../../ApiConfig";
 // import mensData from "../../data/ProdDetailsMen.json";
 
 const SingleProduct = () => {
-  const singleProd = useParams();
+  const navigateTo = useNavigate();
+  const { singleProdId } = useParams();
   const { state } = useContext(AuthContexts);
   const [product, setProduct] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isShowEditBtn, setIsShowEditBtn] = useState(false);
   const [isShowScreenPopup, setIsShowScreenPopup] = useState(false);
   const [isShowEditProdPopup, setIsShowEditProdPopup] = useState(false);
+
+  // console.log(singleProdId, "ID here");
 
   useEffect(() => {
     if (state?.currentUser?.role == "Seller") {
@@ -25,49 +27,67 @@ const SingleProduct = () => {
   }, [state]);
 
   useEffect(() => {
-    if (state?.currentUser) {
-      setIsUserLoggedIn(true);
-      setCurrentUser(state.currentUser);
-    } else {
-      setIsUserLoggedIn(false);
-      setCurrentUser({});
-    }
-  }, [state]);
+    const getSingleProductData = async () => {
+      try {
+        const response = await api.post("/get-singleproduct-data", {
+          productId: singleProdId,
+        });
 
-  useEffect(() => {
-    // const allProducts = JSON.parse(localStorage.getItem("products"));
-    if (state?.allProducts?.length) {
-      const singleProduct = state?.allProducts.find(
-        (prod) => prod.id == singleProd.id
-      );
-      setProduct(singleProduct);
-    } else {
-      setProduct({});
-    }
-  }, [state, singleProd]);
+        if (response.data.success) {
+          setProduct(response.data.product);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+
+    getSingleProductData();
+  }, [singleProdId]);
 
   const openEditProdPopup = () => {
     setIsShowScreenPopup(true);
     setIsShowEditProdPopup(true);
   };
 
-  const addToCart = () => {
-    if (isUserLoggedIn) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password &&
-          currentUser.role == "Buyer"
-        ) {
-          allUsers[i].cart.push(product);
-          localStorage.setItem("users", JSON.stringify(allUsers));
-          toast.success("Product added to cart!");
-          break;
+  const addToCart = async (productId) => {
+    const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+
+    if (token) {
+      try {
+        const response = await api.post("/add-to-cart", { token, productId });
+
+        if (response.data.success) {
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
         }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
-    } else {
-      toast.error("Please login to add product to cart!");
+    }
+  };
+
+  const deleteProduct = async (productId) => {
+    const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+
+    if (token) {
+      try {
+        const response = await api.post("/delete-your-product", {
+          token,
+          productId,
+        });
+
+        if (response.data.success) {
+          navigateTo("/");
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     }
   };
 
@@ -366,21 +386,34 @@ const SingleProduct = () => {
                     color: "white",
                     backgroundColor: "rgb(241, 13, 108)",
                   }}
-                  onClick={() => addToCart(product.id)}
+                  onClick={() => addToCart(product._id)}
                 >
                   Add To Bag
                 </button>
               )}
               {isShowEditBtn && (
-                <button
-                  style={{
-                    color: "white",
-                    backgroundColor: "rgb(241, 13, 108)",
-                  }}
-                  onClick={openEditProdPopup}
-                >
-                  Edit Product
-                </button>
+                <>
+                  <button
+                    style={{
+                      color: "white",
+                      backgroundColor: "rgb(241, 13, 108)",
+                    }}
+                    onClick={() => openEditProdPopup()}
+                  >
+                    Edit Product
+                  </button>
+
+                  <button
+                    style={{
+                      color: "rgb(241, 13, 108)",
+                      backgroundColor: "white",
+                      border: "2px solid rgb(241, 13, 108)",
+                    }}
+                    onClick={() => deleteProduct(product._id)}
+                  >
+                    Delete Product
+                  </button>
+                </>
               )}
             </div>
           </div>

@@ -4,6 +4,7 @@ import "./Cart.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContexts } from "../Context/AuthContext";
 import { toast } from "react-hot-toast";
+import api from "../../ApiConfig";
 
 const Cart = () => {
   const { state } = useContext(AuthContexts);
@@ -24,18 +25,26 @@ const Cart = () => {
   }, [state]);
 
   useEffect(() => {
-    if (isUserLoggedIn) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          setCartProducts(allUsers[i].cart);
+    const getAllCartProducts = async () => {
+      const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+      if (token) {
+        try {
+          const response = await api.post("/get-cart-products", { token });
+
+          if (response.data.success) {
+            setCartProducts(response.data.products);
+          } else {
+            setCartProducts([]);
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error.response.data.message);
         }
       }
-    }
-  }, [isUserLoggedIn, currentUser]);
+    };
+
+    getAllCartProducts();
+  }, []);
 
   useEffect(() => {
     if (cartProducts?.length) {
@@ -49,49 +58,44 @@ const Cart = () => {
     }
   }, [cartProducts]);
 
-  // function redirectToPayment() {
-  //   navigateTo("/payment");
-  // }
+  const removeProduct = async (productId) => {
+    const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
 
-  const removeProduct = (index) => {
-    if (currentUser) {
-      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+    if (token) {
+      try {
+        const response = await api.post("/remove-cart-product", {
+          token,
+          productId,
+        });
 
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          allUsers[i].cart.splice(index, 1);
-          setCartProducts(allUsers[i].cart);
-          localStorage.setItem("users", JSON.stringify(allUsers));
-          toast.success("Product removed!");
-          break;
+        if (response.data.success) {
+          setCartProducts(response.data.products);
+          toast.success(response.data.message);
+        } else {
+          toast.success(response.data.message);
+          setCartProducts([]);
         }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
     }
   };
 
-  const removeAllProducts = () => {
-    if (currentUser) {
-      if (cartProducts?.length > 0) {
-        const allUsers = JSON.parse(localStorage.getItem("users"));
+  const removeAllProducts = async () => {
+    const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
 
-        for (let i = 0; i < allUsers.length; i++) {
-          if (
-            allUsers[i].email == currentUser.email &&
-            allUsers[i].password == currentUser.password
-          ) {
-            allUsers[i].cart = [];
-            setCartProducts([]);
-            localStorage.setItem("users", JSON.stringify(allUsers));
-            toast.success(
-              "Thank You for shopping! your products will deliver soon..."
-            );
-          }
+    if (token) {
+      try {
+        const response = await api.post("/remove-all-cart-products", { token });
+
+        if (response.data.success) {
+          setCartProducts([]);
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
         }
-      } else {
-        toast.error("Please add some products to cart before checkout!");
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
     }
   };
@@ -128,7 +132,7 @@ const Cart = () => {
             <div id="cart-products">
               {cartProducts?.length ? (
                 cartProducts.map((product, index) => (
-                  <div key={index} className="cart-product">
+                  <div key={product._id} className="cart-product">
                     <div className="cart-product-left">
                       <div className="product-img">
                         <img src={product.image} alt="product" />
@@ -200,7 +204,7 @@ const Cart = () => {
                           />
                           <p style={{ marginLeft: "5px" }}>Save to wishlist</p>
                           <span
-                            onClick={() => removeProduct(index)}
+                            onClick={() => removeProduct(product._id)}
                             style={{ marginLeft: "30px", cursor: "pointer" }}
                           >
                             Remove
