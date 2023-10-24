@@ -19,6 +19,10 @@ const Login = (props) => {
       });
 
       if (response.data.success) {
+        localStorage.setItem(
+          "tataCliqUserToken",
+          JSON.stringify(response.data.token)
+        );
         Login(response.data);
         setUserData({ email: "", password: "" });
         props.setIsShowScreen(false);

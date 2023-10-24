@@ -108,3 +108,65 @@ export const getCurrentUser = async (req, res) => {
     return res.status(500).json({ success: false, message: error });
   }
 };
+
+export const updateUserDetails = async (req, res) => {
+  try {
+    const { name, password } = req.body.editProfile;
+    const { token } = req.body;
+
+    if (name || password) {
+      if (!token)
+        return res
+          .status(404)
+          .json({ success: false, message: "Token is required!" });
+
+      const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!decodedData)
+        return res
+          .status(404)
+          .json({ success: false, message: "Not a valid token!" });
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const userId = decodedData.userId;
+
+      const user = await UserModel.findById(userId);
+      // console.log(user);
+
+      if (user) {
+        if (name?.length) {
+          user.name = name;
+        }
+        if (password?.length) {
+          user.password = hashedPassword;
+        }
+        await user.save();
+
+        const userObject = {
+          name: user?.name,
+          email: user?.email,
+          userId: user?._id,
+          role: user?.role,
+          number: user?.number,
+        };
+        return res.status(200).json({
+          success: true,
+          message: "Profile updated successfully!",
+          user: userObject,
+        });
+      }
+
+      return res
+        .status(404)
+        .json({ success: false, message: "No user found to update!" });
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: "please change atleast one field to update your profile!",
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};

@@ -2,9 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Profile.css";
 import { toast } from "react-hot-toast";
 import { AuthContexts } from "../Context/AuthContext";
+import api from "../../ApiConfig";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { state, Login } = useContext(AuthContexts);
+  const navigateTo = useNavigate()
   const [editProfile, setEditProfile] = useState({ name: "", password: "" });
   const [isShowScreen, setIsShowScreen] = useState(false);
   const [isShowEditProfilePopup, setIsShowEditProfilePopup] = useState(false);
@@ -12,25 +15,13 @@ const Profile = () => {
 
   useEffect(() => {
     if (state?.currentUser?.email) {
-      setCurrentUser(state.currentUser);
+      setCurrentUser(state?.currentUser);
     } else {
       setCurrentUser({});
+      navigateTo("/");
+      toast.error("Please login to access this page!");
     }
-  }, [state]);
-
-  useEffect(() => {
-    if (currentUser) {
-      const allUsers = JSON.parse(localStorage.getItem("users"));
-      for (let i = 0; i < allUsers.length; i++) {
-        if (
-          allUsers[i].email == currentUser.email &&
-          allUsers[i].password == currentUser.password
-        ) {
-          setEditProfile(allUsers[i]);
-        }
-      }
-    }
-  }, [currentUser]);
+  }, [state, navigateTo]);
 
   const handleChangeValues = (e) => {
     setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
@@ -46,31 +37,27 @@ const Profile = () => {
     setIsShowEditProfilePopup(false);
   };
 
-  const handleEditProfileSubmit = (e) => {
+  const handleEditProfileSubmit = async (e) => {
     e.preventDefault();
 
-    if (editProfile.name && editProfile.password) {
-      if (currentUser?.email) {
-        const allUsers = JSON.parse(localStorage.getItem("users"));
-        for (let i = 0; i < allUsers.length; i++) {
-          if (
-            allUsers[i].email == currentUser.email &&
-            allUsers[i].password == currentUser.password
-          ) {
-            allUsers[i].name = editProfile.name;
-            allUsers[i].password = editProfile.password;
-            currentUser.name = editProfile.name;
-            currentUser.password = editProfile.password;
-            Login(currentUser);
-            localStorage.setItem("users", JSON.stringify(allUsers));
-          }
-        }
+    try {
+      const token = JSON.parse(localStorage.getItem("tataCliqUserToken"));
+      const response = await api.post("/update-user-details", {
+        token,
+        editProfile,
+      });
+
+      if (response.data.success) {
+        Login(response.data);
+        setEditProfile({ name: "", password: "" });
+        setIsShowScreen(false);
+        setIsShowEditProfilePopup(false);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
       }
-      setIsShowScreen(false);
-      setIsShowEditProfilePopup(false);
-      toast.success("Profile updated successfully!");
-    } else {
-      toast.error("Please fill all the fields!");
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 

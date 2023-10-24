@@ -25,7 +25,6 @@ const AuthProvider = ({ children }) => {
 
   const Login = (userData) => {
     // localStorage.setItem("current-user", JSON.stringify(userData.user));
-    localStorage.setItem("tataCliqUserToken", JSON.stringify(userData.token));
 
     dispatch({
       type: "LOGIN",
